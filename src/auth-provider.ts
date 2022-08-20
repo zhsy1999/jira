@@ -45,5 +45,6 @@ export const register = (data: { username: string; password: string }) => {
   });
 };
 
+//普通函数加上async之后就成为了promise  后面可以加then
 export const logout = async () =>
   window.localStorage.removeItem(localStorageKey);

@@ -1,25 +1,25 @@
 import React, { FormEvent, useState } from "react";
 import { resolveProjectReferencePath } from "typescript";
-
-const apiUrl = "http://localhost:3001";
-// const apiUrl = process.env.REACT_APP_API_URL;
+import { useAuth } from "context/auth-context";
+// const apiUrl = "http://localhost:3001";
+const apiUrl = process.env.REACT_APP_API_URL;
 
 export const LoginScreem = () => {
   const [list, setList] = useState([]);
-
-  const login = (param: { username: string; password: string }) => {
-    fetch(`${apiUrl}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(param),
-    }).then(async (response: Response) => {
-      if (response.ok) {
-        setList(await response.json());
-      }
-    });
-  };
+  const { login, user } = useAuth();
+  // const login = (param: { username: string; password: string }) => {
+  //   fetch(`${apiUrl}/login`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(param),
+  //   }).then(async (response: Response) => {
+  //     if (response.ok) {
+  //       setList(await response.json());
+  //     }
+  //   });
+  // };
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const username = (event.currentTarget.elements[0] as HTMLInputElement)
@@ -30,6 +30,7 @@ export const LoginScreem = () => {
   };
   return (
     <form onSubmit={handleSubmit}>
+      登录成功，用户名为{user?.name}
       <div>
         <label htmlFor="username">用户名</label>
         <input type="text" id="username"></input>
