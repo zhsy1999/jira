@@ -1,10 +1,11 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useState, useEffect } from "react";
 import * as auth from "auth-provider";
 // import { http } from "utils/http";
 import { useMount } from "utils";
 // import { useAsync } from "utils/use-async";
 // import { FullPageErrorFallback, FullPageLoading } from "components/lib";
 import { User } from "screens/project-list/search-panel";
+import { http } from "utils/http";
 // import { User } from "types/user";
 // import { useQueryClient } from "react-query";
 
@@ -13,15 +14,16 @@ interface AuthForm {
   password: string;
 }
 
-// const bootstrapUser = async () => {
-//   let user = null;
-//   const token = auth.getToken();
-//   if (token) {
-//     const data = await http("me", { token });
-//     user = data.user;
-//   }
-//   return user;
-// };
+//初始化user数据  否则刷新后user就会丢失  页面又会回到登录前状态
+const bootstrapUser = async () => {
+  let user = null;
+  const token = auth.getToken();
+  if (token) {
+    const data = await http("me", { token });
+    user = data.user;
+  }
+  return user;
+};
 
 const AuthContext = React.createContext<
   | {
@@ -55,6 +57,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setUser(null);
       // queryClient.clear();
     });
+
+  //页面加载的时候调用
+  useMount(() => {
+    bootstrapUser().then(setUser);
+  });
+
+  // useEffect(() => {
+  //   bootstrapUser().then(setUser)
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   // useMount(() => {
   //   run(bootstrapUser());
