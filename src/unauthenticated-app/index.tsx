@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { LoginScreem } from "./login";
+import { RegisterScreen } from "./register";
 // import { RegisterScreen } from "unauthenticated-app/register";
 // import { LoginScreen } from "unauthenticated-app/login";
 // import { Button, Card, Divider } from "antd";
@@ -80,3 +82,15 @@ import React, { useState } from "react";
 //   align-items: center;
 //   min-height: 100vh;
 // `;
+
+export const UnauthenticatedApp = () => {
+  const [isRegister, setIsRegister] = useState(false);
+  return (
+    <div>
+      {isRegister ? <RegisterScreen /> : <LoginScreem />}
+      <button onClick={() => setIsRegister(!isRegister)}>
+        切换到{isRegister ? "登录" : "注册"}
+      </button>
+    </div>
+  );
+};

@@ -1,4 +1,6 @@
 import React from "react";
+import { ProjectListScreen } from "screens/project-list";
+import { useAuth } from "context/auth-context";
 // import { ProjectListScreen } from "screens/project-list";
 // import { useAuth } from "context/auth-context";
 // import { ReactComponent as SoftwareLogo } from "assets/software-logo.svg";
@@ -99,3 +101,12 @@ import React from "react";
 //   display: flex;
 //   overflow: hidden;
 // `;
+export const AuthenticatedApp = () => {
+  const { logout } = useAuth();
+  return (
+    <div>
+      <button onClick={logout}>登出</button>
+      <ProjectListScreen />
+    </div>
+  );
+};

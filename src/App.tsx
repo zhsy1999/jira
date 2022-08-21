@@ -1,12 +1,17 @@
 import React from "react";
 import logo from "./logo.svg";
 import { LoginScreem } from "screens/login";
+import { useAuth } from "context/auth-context";
 import "./App.css";
+import { AuthenticatedApp } from "authenticated-app";
+import { UnauthenticatedApp } from "unauthenticated-app";
 
 function App() {
+  const { user } = useAuth();
   return (
     <div className="App">
-      <LoginScreem />
+      {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+      {/* <LoginScreem /> */}
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
