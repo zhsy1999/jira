@@ -1,4 +1,4 @@
-import React, { ReactNode, useState, useEffect } from "react";
+import React, { ReactNode, useState } from "react";
 import * as auth from "auth-provider";
 // import { http } from "utils/http";
 import { useMount } from "utils";
@@ -62,11 +62,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useMount(() => {
     bootstrapUser().then(setUser);
   });
-
-  // useEffect(() => {
-  //   bootstrapUser().then(setUser)
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
 
   // useMount(() => {
   //   run(bootstrapUser());

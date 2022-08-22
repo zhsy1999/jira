@@ -79,6 +79,7 @@
 import React, { FormEvent, useState } from "react";
 import { resolveProjectReferencePath } from "typescript";
 import { useAuth } from "context/auth-context";
+import { Form, Input, Button } from "antd";
 // const apiUrl = "http://localhost:3001";
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -107,17 +108,33 @@ export const RegisterScreen = () => {
     register({ username, password });
   };
   return (
-    <form onSubmit={handleSubmit}>
-      {/* 登录成功，用户名为{user?.name} */}
-      <div>
-        <label htmlFor="username">用户名</label>
-        <input type="text" id="username"></input>
-      </div>
-      <div>
-        <label htmlFor="password">密码</label>
-        <input type="password" id="password"></input>
-      </div>
-      <button type={"submit"}>注册</button>
-    </form>
+    <Form onFinish={handleSubmit}>
+      <Form.Item
+        name={"username"}
+        rules={[{ required: true, message: "请输入用户名" }]}
+      >
+        <Input placeholder={"用户名"} type="text" id={"username"} />
+      </Form.Item>
+      <Form.Item
+        name={"password"}
+        rules={[{ required: true, message: "请输入密码" }]}
+      >
+        <Input placeholder={"密码"} type="password" id={"password"} />
+      </Form.Item>
+      <Form.Item
+        name={"cpassword"}
+        rules={[{ required: true, message: "请确认密码" }]}
+      >
+        <Input placeholder={"确认密码"} type="password" id={"cpassword"} />
+      </Form.Item>
+      <Form.Item>
+        <Button htmlType={"submit"} type={"primary"}>
+          注册
+        </Button>
+        {/* <LongButton loading={isLoading} htmlType={"submit"} type={"primary"}>
+          注册
+        </LongButton> */}
+      </Form.Item>
+    </Form>
   );
 };
