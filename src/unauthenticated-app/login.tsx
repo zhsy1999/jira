@@ -67,10 +67,11 @@ import React, { FormEvent, useState } from "react";
 import { resolveProjectReferencePath } from "typescript";
 import { useAuth } from "context/auth-context";
 import { Form, Input, Button } from "antd";
+import { LongButton } from "unauthenticated-app";
 // const apiUrl = "http://localhost:3001";
 const apiUrl = process.env.REACT_APP_API_URL;
 
-export const LoginScreem = () => {
+export const LoginScreen = () => {
   const [list, setList] = useState([]);
   const { login, user } = useAuth();
   // const login = (param: { username: string; password: string }) => {
@@ -86,14 +87,18 @@ export const LoginScreem = () => {
   //     }
   //   });
   // };
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const username = (event.currentTarget.elements[0] as HTMLInputElement)
-      .value;
-    const password = (event.currentTarget.elements[1] as HTMLInputElement)
-      .value;
-    login({ username, password });
+  const handleSubmit = (values: { username: string; password: string }) => {
+    login(values);
   };
+  // const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  //   console.log(111)
+  //   event.preventDefault();
+  //   const username = (event.currentTarget.elements[0] as HTMLInputElement)
+  //     .value;
+  //   const password = (event.currentTarget.elements[1] as HTMLInputElement)
+  //     .value;
+  //   login({ username, password });
+  // };
   // return (
   //   <Form onSubmit={handleSubmit}>
   //     {/* 登录成功，用户名为{user?.name} */}
@@ -123,9 +128,9 @@ export const LoginScreem = () => {
         <Input placeholder={"密码"} type="password" id={"password"} />
       </Form.Item>
       <Form.Item>
-        <Button htmlType={"submit"} type={"primary"}>
+        <LongButton htmlType={"submit"} type={"primary"}>
           登录
-        </Button>
+        </LongButton>
         {/* <LongButton loading={isLoading} htmlType={"submit"} type={"primary"}>
           登录
         </LongButton> */}
